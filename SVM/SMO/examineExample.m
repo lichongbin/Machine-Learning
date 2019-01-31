@@ -8,45 +8,47 @@ else
     E2 = Error (i2);
 end
 
+% E2*Y(i2) - 1 = Y(i2) ( f(i2) - Y(i2) )
 r2 = E2*Y(i2);
-
-if ((r2 < -tol) && (alph2<ul(2))) || ((r2>tol) && (alph2 > 0))
-    tmp = find((Error>tol) & (Error<ul(2)-tol));
+% violates KKT conditions
+if (( r2 < -tol ) && ( alph2 < ul(2) )) || (( r2 > tol ) && ( alph2 > 0 ))
+    tmp = find(( Error > tol ) & ( Error < ul(2)-tol ));
   
     if(~isempty(tmp)) && (E2>0)
-        [PP,i1]=max(Error);
-        [check,alpha,Error,b]=takeStep(i1,i2,alpha,Y,b,eps,Error,ul,K,E2,tol);
+        [~,i1] = max(Error);
+        [check,alpha,Error,b] = takeStep(i1,i2,alpha,Y,b,eps,Error,ul,K,E2,tol);
         if check
-            out=1;
+            out = 1;
             return;
         end
     elseif (~isempty(tmp)) && (E2<0)
-        [PP,i1]=min(Error);
-        [check,alpha,Error,b]=takeStep(i1,i2,alpha,Y,b,eps,Error,ul,K,E2,tol);
+        [~,i1] = min(Error);
+        [check,alpha,Error,b] = takeStep(i1,i2,alpha,Y,b,eps,Error,ul,K,E2,tol);
         if check
-            out=1;
+            out = 1;
             return;
         end
     end
    
-    %%loop over all non-zero and non-C alpha, starting at randmom points
+    % loop over all non-zero and non-C alpha, starting at randmom points
     if (~isempty(tmp))
-        startPoint=randi(length(tmp));
-        %%reorder the tmp matrix
-        tmp=[tmp(startPoint:end) tmp(1:startPoint-1)];
-        for i1=tmp
-            [check,alpha,Error,b]=takeStep(i1,i2,alpha,Y,b,eps,Error,ul,K,E2,tol);
+        startPoint = randi(length(tmp));
+        % reorder the tmp matrix
+        tmp = [tmp(startPoint:end) tmp(1:startPoint-1)];
+        for i1 = tmp
+            [check,alpha,Error,b] = takeStep(i1,i2,alpha,Y,b,eps,Error,ul,K,E2,tol);
             if check
-                out=1;
+                out = 1;
                 return
             end
         end
     end
-    %%loop over all lagrange multiplier elements, starting at randmom points
-    for i1=1:length(alpha)
-        [check,alpha,Error,b]=takeStep(i1,i2,alpha,Y,b,eps,Error,ul,K,E2,tol);
+
+    % loop over all lagrange multiplier elements, starting at randmom points
+    for i1 = 1:length(alpha)
+        [check,alpha,Error,b] = takeStep(i1,i2,alpha,Y,b,eps,Error,ul,K,E2,tol);
         if check
-            out=1;
+            out = 1;
             return
         end
     end

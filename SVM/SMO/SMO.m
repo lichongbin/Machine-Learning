@@ -38,7 +38,7 @@ while( numChanged > 0 || examineAll )
         end
     end
     
-    if (examineAll==1)
+    if (examineAll == 1)
         examineAll = 0;
     elseif (numChanged == 0)
         examineAll = 1;

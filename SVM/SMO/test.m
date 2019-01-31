@@ -21,8 +21,6 @@ y(51:100) = -1;
 [alpha, b, TS] = SMO(X, y, 0.001, 0.001, 'L', [0, 1], 100, 0);
 
 d = 0.01;
-% [x1Grid, x2Grid]= meshgrid(min(sepal_length):d:max(sepal_length), ...
-%                            min(sepal_width):d:max(sepal_width));
 
 figure;
 hold on;

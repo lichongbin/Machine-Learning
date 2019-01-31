@@ -55,6 +55,7 @@ if( eta < 0 )
 else
     v1 = f(Y,alpha,b,i1,K) - b - Y(i1)*alph1*k11 - Y(i2)*alph2*k12;
     v2 = f(Y,alpha,b,i2,K) - b - Y(i1)*alph1*k12 - Y(i2)*alph2*k22;
+
     Lobj = -s*L + L - 0.5*k11*(gamma-s*L)^2 - 0.5*k22*L^2 ... 
            - s*k12*(gamma-s*L)*L ...
            - Y(i1)*(gamma-s*L)*v1 - Y(i2)*L*v2;
